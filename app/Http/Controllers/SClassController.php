@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\SClass;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class SClassController extends Controller
 {
@@ -14,7 +15,8 @@ class SClassController extends Controller
      */
     public function index()
     {
-        //
+        $classes = SClass::all();
+        return Response::json(['classes'=>$classes]);
     }
 
     /**
@@ -35,7 +37,13 @@ class SClassController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $status = SClass::create([
+            'class'=>$request->class
+        ]);
+        if($status){
+            return Response::json(['message'=>'Class created successfully','class'=>$status]);
+        }
+        return Response::json(['message'=>'Class could not be created']);
     }
 
     /**
@@ -67,9 +75,15 @@ class SClassController extends Controller
      * @param  \App\SClass  $sClass
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SClass $sClass)
+    public function update(Request $request, $id)
     {
-        //
+        $class = SClass::find($id);
+        $status = $class->update($request->all());
+        if ($status){
+            return Response::json(['message'=>'class updated successfully','class'=>$status]);
+        }
+        return Response::json(['message'=>'class update was not successfully']);
+
     }
 
     /**

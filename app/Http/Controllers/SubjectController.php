@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Subject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class SubjectController extends Controller
 {
@@ -14,7 +15,8 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        //
+        $subjects = Subject::all();
+        return Response::json(['subjects'=>$subjects]);
     }
 
     /**
@@ -24,7 +26,7 @@ class SubjectController extends Controller
      */
     public function create()
     {
-        //
+       //
     }
 
     /**
@@ -35,7 +37,12 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $status = Subject::create([
+            'subject'=>$request->subject
+        ]);
+        if($status){
+            return Response::json(['message'=>'Subject was successfully created']);
+        }
     }
 
     /**
@@ -67,9 +74,11 @@ class SubjectController extends Controller
      * @param  \App\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Subject $subject)
+    public function update(Request $request, $id)
     {
-        //
+        $subject = Subject::find($id);
+        $subject->update($request->all());
+        return Response::json(['message'=>'Subject updated successfully']);
     }
 
     /**
@@ -78,8 +87,13 @@ class SubjectController extends Controller
      * @param  \App\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Subject $subject)
+    public function destroy($id)
     {
-        //
+        $subject= Subject::find($id);
+        $status = $subject->delete();
+        if($status){
+            return Response::json(['message'=>'Subject Deleted successfully']);
+        }
+        Response::json(['message'=>'An error occured']);
     }
 }
