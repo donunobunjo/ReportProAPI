@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class StudentController extends Controller
 {
@@ -14,7 +15,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        $students = Student::all();
+        return Response::json(['students'=>$students]);
     }
 
     /**
@@ -35,7 +37,18 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $student=Student::create([
+            'roll_num'=>$request->roll_num,
+            'fullname'=>$request->fullname,
+            'dob'=>$request->dob,
+            'class'=>$request->class,
+            'gender'=>$request->gender,
+            'active'=>$request->active
+        ]);
+        if($student){
+            return Response::json(['message'=>'Student created successfully','student'=>$student]);
+        }
+        return Response::json(['message'=>'Student was not created']);
     }
 
     /**
@@ -67,9 +80,13 @@ class StudentController extends Controller
      * @param  \App\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Student $student)
+    public function update(Request $request, $id)
     {
-        //
+        $student=Student::find($id);
+        $student->update($request->all());
+        if($student){
+            return Response::json(['message'=>'Student updated successfully','student'=>$student]);
+        }
     }
 
     /**
@@ -78,8 +95,10 @@ class StudentController extends Controller
      * @param  \App\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Student $student)
+    public function destroy($id)
     {
-        //
+        $student=Student::find($id);
+        $student->delete();
+        return Response::json(['message'=>'Student deleted successfully']);
     }
 }

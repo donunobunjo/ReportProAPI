@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Score;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class ScoreController extends Controller
 {
@@ -14,7 +15,8 @@ class ScoreController extends Controller
      */
     public function index()
     {
-        //
+        $scores = Score::all();
+        return Response::json(['scores'=>$scores]);
     }
 
     /**
@@ -35,7 +37,21 @@ class ScoreController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $score= Score::create([
+            'roll_num'=>$request->roll_num,
+            'fullname'=>$request->fullname,
+            'session'=>$request->session,
+            'term'=>$request->term,
+            'class'=>$request->class,
+            'subject'=>$request->subject,
+            'first_ca'=>$request->first_ca,
+            'second_ca'=>$request->second_ca,
+            'exam'=>$request->exam
+        ]);
+        if($score){
+            Response::json(['message'=>'Score created successfully','score'=>$score]);
+        }
+        Response::json(['message'=>'Score was not created']);
     }
 
     /**
@@ -67,9 +83,11 @@ class ScoreController extends Controller
      * @param  \App\Score  $score
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Score $score)
+    public function update(Request $request, $id)
     {
-        //
+        $score=Score::find($id);
+        $updated= $score->update($request->all());
+        return Response::json(['message'=>'Score updated successfully','score'=>$updated]);
     }
 
     /**
@@ -78,8 +96,10 @@ class ScoreController extends Controller
      * @param  \App\Score  $score
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Score $score)
+    public function destroy($id)
     {
-        //
+        $score=Score::find($id);
+        $score->delete();
+        return Response::json(['message'=>'Score deleted successfully']);
     }
 }
