@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Score;
+use App\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
-class ScoreController extends Controller
+class SessionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class ScoreController extends Controller
      */
     public function index()
     {
-        $scores = Score::all();
-        return Response::json(['scores'=>$scores]);
+        $sessions = Session::all();
+        return Response::json(['sessions'=>$sessions]);
     }
 
     /**
@@ -37,30 +37,21 @@ class ScoreController extends Controller
      */
     public function store(Request $request)
     {
-        $score= Score::create([
-            'roll_num'=>$request->roll_num,
-            'fullname'=>$request->fullname,
-            'session'=>$request->session,
-            'term'=>$request->term,
-            'class'=>$request->class,
-            'subject'=>$request->subject,
-            'first_ca'=>$request->first_ca,
-            'second_ca'=>$request->second_ca,
-            'exam'=>$request->exam
+        $session = Session::create([
+            'session'=>$request->session
         ]);
-        if($score){
-           return Response::json(['message'=>'Score created successfully','score'=>$score]);
+        if($session){
+            return Response::json(['message'=>'sesion created successfully','session'=>$session]);
         }
-        return Response::json(['message'=>'Score was not created']);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Score  $score
+     * @param  \App\Session  $session
      * @return \Illuminate\Http\Response
      */
-    public function show(Score $score)
+    public function show(Session $session)
     {
         //
     }
@@ -68,10 +59,10 @@ class ScoreController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Score  $score
+     * @param  \App\Session  $session
      * @return \Illuminate\Http\Response
      */
-    public function edit(Score $score)
+    public function edit(Session $session)
     {
         //
     }
@@ -80,26 +71,24 @@ class ScoreController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Score  $score
+     * @param  \App\Session  $session
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $score=Score::find($id);
-        $updated= $score->update($request->all());
-        return Response::json(['message'=>'Score updated successfully','score'=>$updated]);
+        $session = Session::find($id);
+        $session->update($request->all());
+        return Response::json(['message'=>'Session updated successfully','session'=>$session]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Score  $score
+     * @param  \App\Session  $session
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Session $session)
     {
-        $score=Score::find($id);
-        $score->delete();
-        return Response::json(['message'=>'Score deleted successfully']);
+        //
     }
 }

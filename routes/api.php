@@ -18,6 +18,7 @@ Route::resource('subject','SubjectController');
 Route::resource('class','SClassController');
 Route::resource('student','StudentController');
 Route::resource('score','ScoreController');
+Route::resource('session','SessionController');
 
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
