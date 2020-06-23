@@ -37,12 +37,15 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
+        $lala=$request->subject;
+        //return Response::json(['message'=>$lala]);
         $status = Subject::create([
             'subject'=>$request->subject
         ]);
         if($status){
             return Response::json(['message'=>'Subject was successfully created']);
         }
+        return Response::json(['message'=>'Ooops an error occured']);
     }
 
     /**
