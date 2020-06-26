@@ -39,11 +39,11 @@ class SubjectController extends Controller
     {
         $lala=$request->subject;
         //return Response::json(['message'=>$lala]);
-        $status = Subject::create([
-            'subject'=>$request->subject
+        $subject = Subject::create([
+            'subject'=>strtoupper($request->subject)
         ]);
-        if($status){
-            return Response::json(['message'=>'Subject was successfully created']);
+        if($subject){
+            return Response::json(['message'=>'Subject was successfully created','subject'=>$subject]);
         }
         return Response::json(['message'=>'Ooops an error occured']);
     }
@@ -81,7 +81,7 @@ class SubjectController extends Controller
     {
         $subject = Subject::find($id);
         $subject->update($request->all());
-        return Response::json(['message'=>'Subject updated successfully']);
+        return Response::json(['message'=>'Subject updated successfully','newsubject'=>$subject]);
     }
 
     /**
