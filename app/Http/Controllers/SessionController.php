@@ -38,7 +38,7 @@ class SessionController extends Controller
     public function store(Request $request)
     {
         $session = Session::create([
-            'session'=>$request->session
+            'session'=>$request->sesion
         ]);
         if($session){
             return Response::json(['message'=>'sesion created successfully','session'=>$session]);
