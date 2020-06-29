@@ -38,7 +38,7 @@ class SClassController extends Controller
     public function store(Request $request)
     {
         $status = SClass::create([
-            'class'=>$request->class
+            'class'=>$request->classs
         ]);
         if($status){
             return Response::json(['message'=>'Class created successfully','class'=>$status]);
