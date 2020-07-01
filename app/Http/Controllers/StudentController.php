@@ -85,7 +85,7 @@ class StudentController extends Controller
         $student=Student::find($id);
         $student->update($request->all());
         if($student){
-            return Response::json(['message'=>'Student updated successfully','student'=>$student]);
+            return Response::json(['message'=>'Student updated successfully','newstudent'=>$student]);
         }
     }
 
