@@ -86,8 +86,8 @@ class ScoreController extends Controller
     public function update(Request $request, $id)
     {
         $score=Score::find($id);
-        $updated= $score->update($request->all());
-        return Response::json(['message'=>'Score updated successfully','newscore'=>$updated]);
+        $score->update($request->all());
+        return Response::json(['message'=>'Score updated successfully','newscore'=>$score]);
     }
 
     /**
