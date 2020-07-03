@@ -38,11 +38,11 @@ class ScoreController extends Controller
     public function store(Request $request)
     {
         $score= Score::create([
-            'roll_num'=>$request->roll_num,
-            'fullname'=>$request->fullname,
+            'roll_num'=>$request->rollNumber,
+            'fullname'=>$request->studentName,
             'session'=>$request->session,
             'term'=>$request->term,
-            'class'=>$request->class,
+            'class'=>$request->clas,
             'subject'=>$request->subject,
             'first_ca'=>$request->first_ca,
             'second_ca'=>$request->second_ca,
@@ -87,7 +87,7 @@ class ScoreController extends Controller
     {
         $score=Score::find($id);
         $updated= $score->update($request->all());
-        return Response::json(['message'=>'Score updated successfully','score'=>$updated]);
+        return Response::json(['message'=>'Score updated successfully','newscore'=>$updated]);
     }
 
     /**
