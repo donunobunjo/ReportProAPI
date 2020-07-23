@@ -14,8 +14,9 @@ class SubjectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $subjects = Subject::all();
+    {   
+        // $subjects::Subject::all()
+        $subjects = Subject::orderBy('subject')->get();
         return Response::json(['subjects'=>$subjects]);
     }
 

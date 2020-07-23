@@ -15,7 +15,8 @@ class SessionController extends Controller
      */
     public function index()
     {
-        $sessions = Session::all();
+        // $sessions = Session::all();
+        $sessions= Session::orderBy('session')->get();
         return Response::json(['sessions'=>$sessions]);
     }
 

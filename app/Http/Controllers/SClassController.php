@@ -15,7 +15,8 @@ class SClassController extends Controller
      */
     public function index()
     {
-        $classes = SClass::all();
+        // $classes = SClass::all();
+        $classes=SClass::orderBy('class')->get();
         return Response::json(['classes'=>$classes]);
     }
 
