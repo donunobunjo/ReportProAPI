@@ -18,7 +18,7 @@ class UserController extends Controller
             'role'=>'required'
         ]);
         if ($validator->fails()){
-            return Response::json(['error'=>$validator->errors()],401);
+            return Response::json(['errMsg'=>'Validation error']);
         }
         $user = User::create([
             'name'=>$request->name,
@@ -26,10 +26,15 @@ class UserController extends Controller
             'password'=>bcrypt($request->password),
             'role'=>$request->role
         ]);
-        $token = $user->createToken('myToken')->accessToken;
-        $name = $user->name;
-        $role = $user->role;
-        return Response::json(['name'=>$name,'token'=>$token,'role'=>$role]);
+        if ($user){
+            $token = $user->createToken('myToken')->accessToken;
+            $name = $user->name;
+            $role = $user->role;
+            return Response::json(['name'=>$name,'token'=>$token,'role'=>$role]);
+        }
+        else{
+            return Response::json(['errMsg'=>'Error ocurred']);
+        }
     }
 
     public function login(Request $request){
@@ -37,10 +42,10 @@ class UserController extends Controller
         $credentials=['email'=>$request->email,'password'=>$request->password];
 
         if (Auth::attempt($credentials)){
-            $user=Auth::user()->name;
+            $name=Auth::user()->name;
             $token=Auth::user()->createToken('myToken')->accessToken;
             $role=Auth::user()->role;
-            return Response::json(['user'=>$user,'token'=>$token,'role'=>$role],200);
+            return Response::json(['name'=>$name,'token'=>$token,'role'=>$role],200);
         }
 
         return Response::json(['error'=>'Unauthorized'],401);

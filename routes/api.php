@@ -15,11 +15,15 @@ use Illuminate\Support\Facades\Route;
 */
 Route::post('register','UserController@register');
 Route::post('login', 'UserController@login');
-Route::resource('subject','SubjectController');
-Route::resource('class','SClassController');
-Route::resource('student','StudentController');
-Route::resource('score','ScoreController');
-Route::resource('session','SessionController');
+// Route::resource('score','ScoreController');
+
+Route::group(['middleware' => 'auth:api'], function() {
+    Route::resource('subject','SubjectController');
+    Route::resource('class','SClassController');
+    Route::resource('student','StudentController');
+    Route::resource('score','ScoreController');
+    Route::resource('session','SessionController');
+});
 
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
