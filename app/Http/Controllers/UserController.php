@@ -30,10 +30,10 @@ class UserController extends Controller
             $token = $user->createToken('myToken')->accessToken;
             $name = $user->name;
             $role = $user->role;
-            return Response::json(['name'=>$name,'token'=>$token,'role'=>$role]);
+            return Response::json(['name'=>$name,'token'=>$token,'role'=>$role,'msg'=>'success']);
         }
         else{
-            return Response::json(['errMsg'=>'Error ocurred']);
+            return Response::json(['errMsg'=>'Error ocurred','msg'=>'failure']);
         }
     }
 
@@ -45,10 +45,10 @@ class UserController extends Controller
             $name=Auth::user()->name;
             $token=Auth::user()->createToken('myToken')->accessToken;
             $role=Auth::user()->role;
-            return Response::json(['name'=>$name,'token'=>$token,'role'=>$role],200);
+            return Response::json(['name'=>$name,'token'=>$token,'role'=>$role,'msg'=>'success'],200);
         }
 
-        return Response::json(['error'=>'Unauthorized'],401);
+        return Response::json(['msg'=>'failure'],401);
     }
 
     public function logout(){
