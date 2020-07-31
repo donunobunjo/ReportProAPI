@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
@@ -54,5 +55,10 @@ class UserController extends Controller
     public function logout(){
         $user = Auth::user()->name;
         return Response::json(['msg'=>$user]);
+    }
+
+    public function lala(){
+        $subjects = Subject::all();
+        return Response::json(['subjects'=>$subjects]);
     }
 }
