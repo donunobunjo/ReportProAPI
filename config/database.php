@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Support\Str;
-$urll = getenv("CLEARDB_DATABASE_URL");
 // $host = env('DB_HOST', '127.0.0.1')??parse_url($urll)["host"];
 // $username = env('DB_USERNAME', 'forge')??parse_url($urll)["user"];
 // $password = env('DB_PASSWORD', '')??parse_url($urll)["pass"];
 // $database = env('DB_DATABASE', 'forge')??substr(parse_url($urll)["path"],1);
+$urll = getenv("CLEARDB_DATABASE_URL");
 $host=parse_url($urll)["host"];
 $username=parse_url($urll)["user"];
 $password = parse_url($urll)["pass"];
