@@ -83,6 +83,9 @@
                 <div class="title m-b-md">
                     ReportPro API
                 </div>
+                <div>
+                    <a href="http://reportpro.herokuapp.com/">ReportPro Frontend</a>
+                </div>
 
                 <!-- <div class="links">
                     <a href="https://laravel.com/docs">Docs</a>
